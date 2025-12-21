@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- **@maestro/worker-gate** - Worker pool gate adapter
+  - Generic `WorkerPool` interface
+  - Pool → PressureSource adapter
+  - Fire-and-forget dispatch semantics
+- Examples directory with 7 demo files
+
+---
+
 ## [0.1.0-alpha.0] - 2024-12-21
 
 ### Added

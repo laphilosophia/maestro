@@ -42,6 +42,18 @@ maestro.admit({
 })
 ```
 
+# Examples
+
+> You can find them in the [examples](./examples) directory.
+
+- [Basic Handler Patterns](./examples/basic-handler-pattern.ts)
+- [IoT Ingestion](./examples/iot-ingestion.ts)
+- [Retry Flow](./examples/retry-flow.ts)
+- [IoT Flood](./examples/test-iot-flood.ts)
+- [Restart](./examples/test-restart.ts)
+- [Sensor Stall](./examples/test-sensor-stall.ts)
+- [Worker Pool Gate](./examples/worker-gate-demo.ts)
+
 ## Documentation
 
 - [Core Package README](./packages/core/README.md)
