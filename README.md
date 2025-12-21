@@ -20,9 +20,10 @@ Maestro explicitly does **not** determine: correctness, success, semantic validi
 
 ## Packages
 
-| Package                          | Description          |
-| -------------------------------- | -------------------- |
-| [@maestro/core](./packages/core) | Core decision fabric |
+| Package                                        | Description              |
+| ---------------------------------------------- | ------------------------ |
+| [@maestro/core](./packages/core)               | Core decision fabric     |
+| [@maestro/worker-gate](./packages/worker-gate) | Worker pool gate adapter |
 
 ## Quick Start
 

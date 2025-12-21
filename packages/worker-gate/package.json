@@ -1,0 +1,38 @@
+{
+  "name": "@maestro/worker-gate",
+  "version": "0.1.0-alpha.0",
+  "description": "Worker pool gate adapter for Maestro decision fabric",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "@maestro/core": "^0.1.0-alpha.0"
+  },
+  "devDependencies": {
+    "@maestro/core": "workspace:*",
+    "typescript": "^5.8.2",
+    "tsup": "^8.5.1",
+    "vitest": "^3.2.4"
+  },
+  "keywords": [
+    "maestro",
+    "worker-pool",
+    "backpressure",
+    "gate"
+  ],
+  "license": "MIT"
+}
