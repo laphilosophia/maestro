@@ -1,5 +1,9 @@
 # Maestro
 
+> ⚠️ **ALPHA - NOT FOR PRODUCTION USE**
+>
+> This project is in early development. APIs may change without notice.
+
 **Mechanical decision fabric for task admission under pressure.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
