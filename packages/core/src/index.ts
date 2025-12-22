@@ -2,7 +2,7 @@
  * @maestro/core
  *
  * Mechanical decision fabric for task admission under pressure.
- * RFC-0 through RFC-6 compliant.
+ * RFC-0 through RFC-7 compliant.
  */
 
 // Types
@@ -12,6 +12,15 @@ export { createInitialRuntimeState } from './types/runtime-state.js'
 export type { TaskRuntimeState } from './types/runtime-state.js'
 export type { SubRoutine, SubRoutineGroup } from './types/subroutine.js'
 export type { Task, TaskID, TaskMetadata } from './types/task.js'
+
+// RFC-7 Types
+export type { CandidateProfile, CandidateRegistry } from './types/candidate-registry.js'
+export {
+  createDecisionEnvelope,
+  createPermissiveEnvelope,
+  type DecisionEnvelope,
+  type EnvelopeResolver,
+} from './types/envelope.js'
 
 // Utils
 export { HALF_LIFE_MS, LAMBDA, decayWeight, timeToWeight } from './utils/forgetting-curve.js'
@@ -39,6 +48,10 @@ export {
   createSubRoutine,
   type DispatchHandler,
 } from './components/subroutine.js'
+
+// RFC-7 Components
+export { createCandidateRegistry } from './components/candidate-registry.js'
+export { createEnvelopeResolver } from './components/envelope-resolver.js'
 
 export {
   createMainRoutine,

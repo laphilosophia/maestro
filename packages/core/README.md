@@ -219,6 +219,8 @@ This implementation follows:
 - RFC-2: Policy & Strategy Layer
 - RFC-3: Observability & Diagnostics
 - RFC-6: Core Types & Interfaces
+- RFC-6.1: Decision Space Model
+- RFC-7: Decision Envelope Layer
 
 ## License
 

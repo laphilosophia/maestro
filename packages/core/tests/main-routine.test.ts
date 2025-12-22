@@ -1,11 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createAmigdala, type PressureSource } from '../src/components/amigdala.js'
+import { createCandidateRegistry } from '../src/components/candidate-registry.js'
 import {
   createCircuitDistributor,
   createSimpleFactory,
 } from '../src/components/circuit-distributor.js'
+import { createEnvelopeResolver } from '../src/components/envelope-resolver.js'
 import { createMainRoutine, type DecisionEvent } from '../src/components/main-routine.js'
 import { createIntentBasedStrategy } from '../src/strategies/intent-based.js'
+import { createPermissiveEnvelope } from '../src/types/envelope.js'
 import type { Task } from '../src/types/task.js'
 
 function createTestTask(overrides?: Partial<Task['metadata']> & { id?: string }): Task {
@@ -36,9 +39,19 @@ function createTestMainRoutine(options?: {
   const strategy = createIntentBasedStrategy({ defaultSubRoutineId: 'default' })
   const distributor = createCircuitDistributor({ strategy, factory })
 
+  // RFC-7 required fields
+  const registry = createCandidateRegistry([
+    { id: 'default', capabilities: [], factory: () => factory.create('default') },
+  ])
+  const defaultEnvelope = createPermissiveEnvelope('test.default.v1', ['default'])
+  const envelopeResolver = createEnvelopeResolver({})
+
   return createMainRoutine({
     amigdala,
     distributor,
+    registry,
+    envelopeResolver,
+    defaultEnvelope,
     onDecision: options?.onDecision,
   })
 }

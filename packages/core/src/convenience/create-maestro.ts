@@ -7,15 +7,19 @@
  * - No-op pressure source (always low pressure)
  * - Fixed intent-based strategy
  * - No performance penalty tracking
+ * - Permissive envelope (all operations allowed)
  *
  * Production systems MUST compose Maestro explicitly.
  */
 
 import { createAmigdala, noopPressureSource } from '../components/amigdala.js'
+import { createCandidateRegistry } from '../components/candidate-registry.js'
 import { createCircuitDistributor, createSimpleFactory } from '../components/circuit-distributor.js'
+import { createEnvelopeResolver } from '../components/envelope-resolver.js'
 import type { DecisionEventHandler } from '../components/main-routine.js'
 import { createMainRoutine, type MainRoutine } from '../components/main-routine.js'
 import { createIntentBasedStrategy } from '../strategies/intent-based.js'
+import { createPermissiveEnvelope } from '../types/envelope.js'
 import type { Task } from '../types/task.js'
 
 /**
@@ -66,6 +70,7 @@ export interface QuickStartConfig {
  * - No-op pressure source
  * - Intent-based strategy
  * - No penalty tracking
+ * - Permissive envelope (all allowed)
  *
  * @example
  * ```typescript
@@ -84,6 +89,9 @@ export function createMaestro(config?: QuickStartConfig): MainRoutine {
   // Fixed: No-op pressure (always low)
   const amigdala = createAmigdala({ source: noopPressureSource })
 
+  // Derive route IDs from intentMap or use default
+  const routeIds = intentMap ? [...new Set(Object.values(intentMap)), 'default'] : ['default']
+
   // Fixed: Intent-based strategy only
   const strategy = createIntentBasedStrategy(
     intentMap ? { intentMap, defaultSubRoutineId: 'default' } : { defaultSubRoutineId: 'default' }
@@ -96,9 +104,29 @@ export function createMaestro(config?: QuickStartConfig): MainRoutine {
     }
   })
 
+  // RFC-7: Create candidate registry with all routes
+  const registry = createCandidateRegistry(
+    routeIds.map((id) => ({
+      id,
+      capabilities: [],
+      factory: () => factory.create(id),
+    }))
+  )
+
+  // RFC-7: Permissive default envelope allowing all routes
+  const defaultEnvelope = createPermissiveEnvelope('demo.permissive.v1', routeIds)
+
+  // RFC-7: Empty resolver (all intents use default envelope)
+  const envelopeResolver = createEnvelopeResolver({})
+
   const distributor = createCircuitDistributor({ strategy, factory })
 
-  return createMainRoutine(
-    onDecision ? { amigdala, distributor, onDecision } : { amigdala, distributor }
-  )
+  return createMainRoutine({
+    amigdala,
+    distributor,
+    registry,
+    envelopeResolver,
+    defaultEnvelope,
+    ...(onDecision ? { onDecision } : {}),
+  })
 }
