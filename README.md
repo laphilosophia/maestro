@@ -47,6 +47,7 @@ maestro.admit({
 > You can find them in the [examples](./examples) directory.
 
 - [Basic Handler Patterns](./examples/basic-handler-pattern.ts)
+- [Envelope IoT Example](./examples/envelope-iot-example.ts)
 - [IoT Ingestion](./examples/iot-ingestion.ts)
 - [Retry Flow](./examples/retry-flow.ts)
 - [IoT Flood](./examples/test-iot-flood.ts)
